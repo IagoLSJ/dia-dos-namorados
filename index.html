@@ -35,7 +35,6 @@
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      /* altura será automática conforme o conteúdo */
     }
 
     .slideshow-text-group {
@@ -134,10 +133,113 @@
       width: 0;
       height: 0;
     }
+
+    /* Overlay invisível para capturar primeiro clique */
+    .music-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .music-overlay.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .music-prompt {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      color: #333;
+      font-family: 'Merriweather', serif;
+      max-width: 300px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .music-prompt h3 {
+      margin-bottom: 15px;
+      color: #9b111e;
+    }
+
+    .music-prompt p {
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .play-button {
+      background: linear-gradient(135deg, #9b111e, #8b008b);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      transition: transform 0.2s ease;
+    }
+
+    .play-button:hover {
+      transform: scale(1.05);
+    }
+
+    /* Indicador de música tocando */
+    .music-indicator {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 10px 15px;
+      border-radius: 20px;
+      color: white;
+      font-size: 14px;
+      backdrop-filter: blur(10px);
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .music-indicator.playing {
+      display: flex;
+    }
+
+    .music-note-anim {
+      animation: bounce 1s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
   </style>
 </head>
 
 <body>
+  <!-- Overlay para iniciar música -->
+  <div class="music-overlay" id="musicOverlay">
+    <div class="music-prompt">
+      <h3>🎵 Experiência Musical</h3>
+      <p>Gostaria de ouvir nossa música especial?</p>
+      <button class="play-button" onclick="startMusic()">SIM❤️‍🔥</button>
+    </div>
+  </div>
+
+  <!-- Indicador de música tocando -->
+  <div class="music-indicator" id="musicIndicator">
+    <span class="music-note-anim">♪</span>
+    <span>Música tocando</span>
+  </div>
+
   <div class="container-fixa">
     <div class="slideshow-text-group">
       <div class="slideshow-text pequeno">
@@ -161,6 +263,82 @@
       <img src="imgs/8.jpg" alt="Foto 8" />
     </div>
   </div>
+
+  <!-- Áudio com configurações otimizadas -->
+  <audio id="backgroundMusic" preload="auto" loop style="display: none;">
+    <source src="Jorge & Mateus - Inesperado [Terra Sem CEP] (Vídeo Oficial).mp3" type="audio/mpeg">
+    <source src="Jorge & Mateus - Inesperado [Terra Sem CEP] (Vídeo Oficial).ogg" type="audio/ogg">
+    Seu navegador não suporta o elemento de áudio.
+  </audio>
+
+  <script>
+    let audio = document.getElementById('backgroundMusic');
+    let overlay = document.getElementById('musicOverlay');
+    let indicator = document.getElementById('musicIndicator');
+    let musicStarted = false;
+
+    // Tenta tocar automaticamente quando a página carrega
+    document.addEventListener('DOMContentLoaded', function() {
+      // Pequeno delay para garantir que tudo carregou
+      setTimeout(() => {
+        audio.play().then(() => {
+          // Sucesso na reprodução automática
+          musicStarted = true;
+          indicator.classList.add('playing');
+        }).catch(() => {
+          // Falhou na reprodução automática - mostra overlay
+          overlay.classList.add('show');
+        });
+      }, 500);
+    });
+
+    // Função para iniciar música via botão
+    function startMusic() {
+      audio.play().then(() => {
+        musicStarted = true;
+        overlay.classList.remove('show');
+        indicator.classList.add('playing');
+      }).catch((error) => {
+        console.log('Erro ao reproduzir:', error);
+        alert('Não foi possível reproduzir a música. Verifique se o arquivo existe.');
+      });
+    }
+
+    // Fallback: tenta tocar na primeira interação do usuário
+    function tryPlayOnInteraction() {
+      if (!musicStarted) {
+        audio.play().then(() => {
+          musicStarted = true;
+          overlay.classList.remove('show');
+          indicator.classList.add('playing');
+        }).catch(() => {
+          // Se ainda assim falhar, mostra o overlay
+          overlay.classList.add('show');
+        });
+      }
+    }
+
+    // Event listeners para diferentes tipos de interação
+    document.addEventListener('click', tryPlayOnInteraction, { once: true });
+    document.addEventListener('touchstart', tryPlayOnInteraction, { once: true });
+    document.addEventListener('keydown', tryPlayOnInteraction, { once: true });
+
+    // Configurações de volume (opcional)
+    audio.volume = 0.7; // Volume a 70%
+
+    // Event listeners para controle da música
+    audio.addEventListener('ended', function() {
+      indicator.classList.remove('playing');
+    });
+
+    audio.addEventListener('pause', function() {
+      indicator.classList.remove('playing');
+    });
+
+    audio.addEventListener('play', function() {
+      indicator.classList.add('playing');
+    });
+  </script>
 </body>
 
 </html>
