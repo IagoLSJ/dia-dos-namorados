@@ -2,11 +2,11 @@
 <html lang="pt-br">
 
 <head>
-  <meta charset="UTF-8">
-  <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="imgs/sunflower.png" type="image/x-icon">
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="imgs/sunflower.png" type="image/x-icon" />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet" />
   <title>❤️‍🔥❤️‍🔥MEU BEM❤️‍🔥❤️‍🔥</title>
   <style>
     * {
@@ -16,53 +16,58 @@
     }
 
     body {
-      background: linear-gradient(135deg, #9B111E, #8B008B);
+      background: linear-gradient(135deg, #9b111e, #8b008b);
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       font-family: 'Great Vibes', cursive;
-      overflow: hidden;
+      overflow-x: hidden;
+      padding: 20px;
     }
 
     .container-fixa {
-      width: 500px;
-      height: 800px;
+      width: 90vw;
+      max-width: 500px;
+      padding: 20px;
+      background-color: transparent;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      padding: 30px 20px;
-      position: relative;
-      background-color: transparent;
+      /* altura será automática conforme o conteúdo */
     }
 
     .slideshow-text-group {
       text-align: center;
       margin-bottom: 20px;
+      padding: 0 10px;
     }
 
     .slideshow-text.pequeno {
-      font-size: clamp(18px, 4vw, 28px);
+      font-size: clamp(14px, 3vw, 20px);
       margin-bottom: 10px;
       opacity: 0.9;
       color: white;
       text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+      font-family: 'Merriweather', serif;
+      line-height: 1.4;
+      white-space: pre-wrap;
     }
 
     .slideshow-text {
-      text-align: center;
-      font-size: clamp(24px, 5vw, 40px);
+      font-size: clamp(20px, 5vw, 32px);
       color: white;
       text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
       margin-bottom: 20px;
-      padding: 0 20px;
+      padding: 0 10px;
     }
 
     .slideshow {
       position: relative;
       width: 100%;
       aspect-ratio: 1 / 1;
+      max-width: 100%;
     }
 
     .slideshow img {
@@ -72,26 +77,58 @@
       border-radius: 5%;
       object-fit: cover;
       opacity: 0;
-      animation: fadeInOut 18s infinite;
+      animation: fadeInOut 24s infinite;
       clip-path: url(#heartClip);
     }
 
-    .slideshow img:nth-child(1) { animation-delay: 0s; }
-    .slideshow img:nth-child(2) { animation-delay: 3s; }
-    .slideshow img:nth-child(3) { animation-delay: 6s; }
-    .slideshow img:nth-child(4) { animation-delay: 9s; }
-    .slideshow img:nth-child(5) { animation-delay: 12s; }
-    .slideshow img:nth-child(6) { animation-delay: 15s; }
-    .slideshow img:nth-child(7) { animation-delay: 18s; }
-    .slideshow img:nth-child(8) { animation-delay: 21s; }
-
-    @keyframes fadeInOut {
-      0%, 100% { opacity: 0; }
-      10%, 30% { opacity: 1; }
-      40% { opacity: 0; }
+    .slideshow img:nth-child(1) {
+      animation-delay: 0s;
     }
 
-    /* Corrige o SVG para clipping */
+    .slideshow img:nth-child(2) {
+      animation-delay: 3s;
+    }
+
+    .slideshow img:nth-child(3) {
+      animation-delay: 6s;
+    }
+
+    .slideshow img:nth-child(4) {
+      animation-delay: 9s;
+    }
+
+    .slideshow img:nth-child(5) {
+      animation-delay: 12s;
+    }
+
+    .slideshow img:nth-child(6) {
+      animation-delay: 15s;
+    }
+
+    .slideshow img:nth-child(7) {
+      animation-delay: 18s;
+    }
+
+    .slideshow img:nth-child(8) {
+      animation-delay: 21s;
+    }
+
+    @keyframes fadeInOut {
+      0%,
+      100% {
+        opacity: 0;
+      }
+
+      10%,
+      30% {
+        opacity: 1;
+      }
+
+      40% {
+        opacity: 0;
+      }
+    }
+
     svg {
       position: absolute;
       width: 0;
@@ -101,27 +138,27 @@
 </head>
 
 <body>
-  <!-- Conteúdo fixo -->
   <div class="container-fixa">
     <div class="slideshow-text-group">
-      <div class="slideshow-text pequeno" style="font-family: 'Merriweather', serif;">
-"O amor é paciente, o amor é bondoso. Não inveja, não se vangloria, não se orgulha.
-Não maltrata, não procura seus interesses, não se ira facilmente, não guarda rancor.
-O amor não se alegra com a injustiça, mas se alegra com a verdade.
-Tudo sofre, tudo crê, tudo espera, tudo suporta." 
-<br>1 Coríntios 13:4-7</div>
+      <div class="slideshow-text pequeno">
+        "O amor é paciente, o amor é bondoso. Não inveja, não se vangloria, não se orgulha.
+        Não maltrata, não procura seus interesses, não se ira facilmente, não guarda rancor.
+        O amor não se alegra com a injustiça, mas se alegra com a verdade.
+        Tudo sofre, tudo crê, tudo espera, tudo suporta."
+        <br />1 Coríntios 13:4-7
+      </div>
       <div class="slideshow-text">Você é o meu grande amor ❤️‍🔥❤️‍🔥</div>
     </div>
 
     <div class="slideshow">
-      <img src="imgs/1.jpg" alt="Foto 1">
-      <img src="imgs/2.jpg" alt="Foto 2">
-      <img src="imgs/3.jpg" alt="Foto 3">
-      <img src="imgs/4.jpg" alt="Foto 4">
-      <img src="imgs/5.jpg" alt="Foto 5">
-      <img src="imgs/6.jpg" alt="Foto 6">
-      <img src="imgs/7.jpg" alt="Foto 7">
-      <img src="imgs/8.jpg" alt="Foto 8">
+      <img src="imgs/1.jpg" alt="Foto 1" />
+      <img src="imgs/2.jpg" alt="Foto 2" />
+      <img src="imgs/3.jpg" alt="Foto 3" />
+      <img src="imgs/4.jpg" alt="Foto 4" />
+      <img src="imgs/5.jpg" alt="Foto 5" />
+      <img src="imgs/6.jpg" alt="Foto 6" />
+      <img src="imgs/7.jpg" alt="Foto 7" />
+      <img src="imgs/8.jpg" alt="Foto 8" />
     </div>
   </div>
 </body>
